@@ -340,7 +340,6 @@ function App() {
   const handleCombatEnd = (result: 'win' | 'lose' | 'escape', updatedPlayer: Player) => {
     // Apply combat results
     let finalPlayer = { ...updatedPlayer };
-    
     if (result === 'win') {
       // Apply rewards for victory
       const monster = combatState?.monster.data;
@@ -348,7 +347,6 @@ function App() {
         // XP reward
         const baseXP = 50;
         finalPlayer.xp += baseXP;
-        
         // Class-specific rewards
         const classReward = monster.classRewards.find(
           reward => reward.className === 'all' || finalPlayer.classes.some(c => c.name === reward.className)
@@ -359,7 +357,6 @@ function App() {
             finalPlayer.stats.reputation += classReward.bonusReputation;
           }
         }
-        
         // Apply drop table rewards
         monster.dropTable.items.forEach(drop => {
           if (Math.random() < drop.chance) {
@@ -371,7 +368,6 @@ function App() {
             }
           }
         });
-        
         monster.dropTable.equipment.forEach(drop => {
           if (Math.random() < drop.chance) {
             const item = gameData.items[drop.itemId];
@@ -382,22 +378,33 @@ function App() {
         });
       }
     }
-    
     // Handle escape - already applied reputation penalty in CombatScreen
     if (result === 'escape') {
       // No additional effects needed
     }
-    
     // Update health and mana from combat
     if (combatState) {
       finalPlayer.hearts = combatState.player.health;
       finalPlayer.mana = combatState.player.mana;
     }
-    
+
+    // Find the current story node and transition to the next node based on battle result
+    if (selectedStory && finalPlayer.currentNode) {
+      const story = gameData.stories[selectedStory];
+      const node = story[finalPlayer.currentNode];
+      if (node && node.choices) {
+        // Find the choice with matching battleResult
+        const resultChoice = node.choices.find(
+          c => c.require && c.require.battleResult === result
+        );
+        if (resultChoice && resultChoice.next_node) {
+          finalPlayer.currentNode = resultChoice.next_node;
+        }
+      }
+    }
+
     setPlayer(finalPlayer);
     setCombatState(null);
-    
-    // Navigate based on battle result - this will be handled by story choices
     setCurrentScreen('gameplay');
   };
 
