@@ -53,19 +53,22 @@ export const GameplayScreen: React.FC<GameplayScreenProps> = ({
   };
 
   const handleChoiceClick = (choice: Choice) => {
-    // Check for shop interactions
-    if (currentNode.type === 'shop' && currentNode.shop?.shopId) {
-      onOpenShop(currentNode.shop.shopId);
-      return;
-    }
-    
     // Check for combat encounters
     if ((currentNode.type === 'combat' || currentNode.battle) && currentNode.monster) {
       // Start combat - the result will determine which choice to follow
       onStartCombat(currentNode.monster);
       return;
     }
-    
+
+    // If the choice leads to a shop node, open the shop
+    if (choice.next_node && currentNode.choices) {
+      const nextNode = currentNode.choices.find(c => c.next_node === choice.next_node);
+      if (nextNode && nextNode.next_node && nextNode.next_node === 'shop' && currentNode.shop?.shopId) {
+        onOpenShop(currentNode.shop.shopId);
+        return;
+      }
+    }
+
     onMakeChoice(choice);
     setDiceRoll(null);
     setShowDiceOption(false);

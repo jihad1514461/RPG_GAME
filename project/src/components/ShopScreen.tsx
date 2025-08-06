@@ -32,7 +32,7 @@ export const ShopScreen: React.FC<ShopScreenProps> = ({
 
   const canAfford = (item: ShopItem) => {
     const price = Math.floor(item.value * shop.buyMultiplier);
-    return player.stats.money >= price;
+    return player.stats.gold >= price;
   };
 
   const getSellPrice = (item: Item) => {
@@ -64,7 +64,7 @@ export const ShopScreen: React.FC<ShopScreenProps> = ({
             <div className="flex items-center justify-center space-x-6 text-gray-400">
               <div className="flex items-center space-x-2">
                 <Coins className="w-5 h-5 text-yellow-600" />
-                <span>Your Gold: {player.stats.money}</span>
+                <span>Your Gold: {player.stats.gold}</span>
               </div>
             </div>
           </div>

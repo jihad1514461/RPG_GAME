@@ -12,7 +12,7 @@ export const AdminAuth: React.FC<AdminAuthProps> = ({ onAuthenticated, onBack })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === '123456') {
+    if (password === '1') {
       onAuthenticated();
     } else {
       setError('Invalid password');

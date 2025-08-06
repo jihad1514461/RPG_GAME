@@ -261,11 +261,11 @@ function App() {
     if (!shop) return;
 
     const price = Math.floor(item.value * shop.buyMultiplier);
-    if (player.stats.money < price) return;
+    if (player.stats.gold < price) return;
 
     // Update player
     let updatedPlayer = { ...player };
-    updatedPlayer.stats.money -= price;
+    updatedPlayer.stats.gold -= price;
     updatedPlayer = addItemToInventory(updatedPlayer, item);
 
     // Update shop stock
@@ -299,7 +299,7 @@ function App() {
     );
 
     let updatedPlayer = { ...player };
-    updatedPlayer.stats.money += sellPrice;
+    updatedPlayer.stats.gold += sellPrice;
     updatedPlayer = removeItemFromInventory(updatedPlayer, item.id, 1);
 
     setPlayer(updatedPlayer);
