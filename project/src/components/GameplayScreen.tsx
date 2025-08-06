@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Player, StoryNode, Choice } from '../types/game';
 import { Dice6, Heart, ArrowLeft, Home } from 'lucide-react';
-import { canMakeChoice, rollDice, replaceVariables, getTotalPlayerStats } from '../utils/gameLogic';
+import { canMakeChoice, rollDice, replaceVariables, getTotalPlayerStats, calculateXPThreshold } from '../utils/gameLogic';
 
 interface GameplayScreenProps {
   player: Player;
@@ -240,10 +240,10 @@ export const GameplayScreen: React.FC<GameplayScreenProps> = ({
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">XP:</span>
-                  <span className="text-white">{player.xp} / {player.level * 100}</span>
+                  <span className="text-white">{player.xp} / {calculateXPThreshold(player.level)}</span>
                 </div>
               </div>
-              {player.xp >= player.level * 100 && (
+              {player.xp >= calculateXPThreshold(player.level) && (
                 <div className="mt-2 p-2 bg-yellow-500/20 border border-yellow-500/50 rounded-lg">
                   <p className="text-yellow-400 text-sm font-medium">Ready to Level Up!</p>
                 </div>
@@ -386,21 +386,21 @@ export const GameplayScreen: React.FC<GameplayScreenProps> = ({
                 <h4 className="text-sm font-semibold text-gray-300 mb-2">Derived Stats:</h4>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Physical Damage:</span>
-                    <span className="text-red-300">{Math.floor(totalStats.strength / 2) + 1}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Magical Damage:</span>
-                    <span className="text-purple-300">{Math.floor(totalStats.magic / 2) + 1}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Max Health:</span>
-                    <span className="text-green-300">{totalStats.vitality * 2}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Max Mana:</span>
-                    <span className="text-blue-300">{totalStats.magic * 3}</span>
-                  </div>
+                                      <span className="text-gray-400">Physical Damage:</span>
+                                      <span className="text-red-300">{totalStats.strength}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-gray-400">Magical Damage:</span>
+                                      <span className="text-purple-300">{totalStats.intelligence}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-gray-400">Max Health:</span>
+                                      <span className="text-green-300">{totalStats.vitality * 10}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-gray-400">Max Mana:</span>
+                                      <span className="text-blue-300">{totalStats.magic * 10}</span>
+                                    </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Luck Bonus:</span>
                     <span className="text-yellow-300">{Math.floor(totalStats.luck / 2) + 1}</span>

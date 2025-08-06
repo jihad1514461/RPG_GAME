@@ -52,8 +52,8 @@ export const createPlayer = (
     finalStats.gold += classData.gold;
   }
 
-  const maxHearts = Math.max(1, finalStats.vitality * 2);
-  const maxMana = Math.max(1, finalStats.magic * 3);
+  const maxHearts = Math.max(1, finalStats.vitality * 10);
+  const maxMana = Math.max(1, finalStats.magic * 10);
 
   const player: Player = {
     name,
@@ -111,8 +111,8 @@ export const canLevelUp = (player: Player): boolean => {
 
 export const levelUpPlayer = (player: Player): Player => {
   const newLevel = player.level + 1;
-  const newMaxHearts = Math.max(1, player.stats.vitality * 2);
-  const newMaxMana = Math.max(1, player.stats.magic * 3);
+  const newMaxHearts = Math.max(1, player.stats.vitality * 10);
+  const newMaxMana = Math.max(1, player.stats.magic * 10);
   
   return {
     ...player,
@@ -143,8 +143,8 @@ export const addClassToPlayer = (player: Player, className: string, classData: C
     }
   });
   
-  const newMaxHearts = Math.max(1, newStats.vitality * 2);
-  const newMaxMana = Math.max(1, newStats.magic * 3);
+  const newMaxHearts = Math.max(1, newStats.vitality * 10);
+  const newMaxMana = Math.max(1, newStats.magic * 10);
   
   return {
     ...player,
@@ -342,13 +342,13 @@ export const applyStatIncrease = (player: Player, stat: keyof PlayerStats, amoun
   const newStats = { ...player.stats };
   newStats[stat] += amount;
   
-  const newMaxHearts = stat === 'vitality' 
-    ? Math.max(1, newStats.vitality * 2)
-    : player.maxHearts;
+  const newMaxHearts = stat === 'vitality'
+      ? Math.max(1, newStats.vitality * 10)
+      : player.maxHearts;
 
   const newMaxMana = stat === 'magic'
-    ? Math.max(1, newStats.magic * 3)
-    : player.maxMana;
+      ? Math.max(1, newStats.magic * 10)
+      : player.maxMana;
 
   return {
     ...player,
@@ -374,8 +374,8 @@ export const calculateDerivedStats = (stats: {
   return {
     health: stats.vitality * 10,
     mana: stats.magic * 10,
-    physicalDamage: Math.floor(stats.strength / 2) + 1, // Base physical damage from strength
-    magicalDamage: Math.floor(stats.magic / 2) + 1, // Base magical damage from magic
+    physicalDamage: stats.strength, // Base physical damage from strength
+    magicalDamage: stats.intelligence, // Base magical damage from intelligence
     luckBonus: Math.floor(stats.luck / 2) + 1, // Luck-based bonuses
     socialInfluence: Math.floor((stats.charm + stats.reputation) / 2) + 1, // Combined social influence
     wealthBonus: Math.floor(stats.gold / 100), // Wealth-based bonuses
@@ -455,11 +455,11 @@ export const applyChoiceEffects = (player: Player, choice: Choice, gameItems: { 
 
   // Recalculate max hearts and mana if vitality or magic changed
   if (choice.effects.vitality) {
-    newPlayer.maxHearts = Math.max(1, newStats.vitality * 2);
+    newPlayer.maxHearts = Math.max(1, newStats.vitality * 10);
     newPlayer.hearts = Math.min(newPlayer.hearts, newPlayer.maxHearts);
   }
   if (choice.effects.magic) {
-    newPlayer.maxMana = Math.max(1, newStats.magic * 3);
+    newPlayer.maxMana = Math.max(1, newStats.magic * 10);
     newPlayer.mana = Math.min(newPlayer.mana, newPlayer.maxMana);
   }
 

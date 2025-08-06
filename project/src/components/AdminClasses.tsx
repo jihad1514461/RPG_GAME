@@ -21,23 +21,41 @@ export const AdminClasses: React.FC<AdminClassesProps> = ({
   const [editingClass, setEditingClass] = useState<string | null>(null);
   const [newClassName, setNewClassName] = useState('');
   const [classData, setClassData] = useState<ClassDefinition>({
-    id: '',
-    name: '',
-    tier: 0,
-    baseStats: {},
-    elementalRequirements: [],
-    reputation: 0,
-    gold: 0,
-    description: '',
-    maxLevel: 20
-  });
+      id: '',
+      name: '',
+      tier: 0,
+      baseStats: {
+        strength: 0,
+        intelligence: 0,
+        magic: 0,
+        vitality: 0,
+        luck: 0,
+        charm: 0,
+        reputation: 0,
+        gold: 0
+      },
+      elementalRequirements: [],
+      reputation: 0,
+      gold: 0,
+      description: '',
+      maxLevel: 20
+    });
   const [classRequirement, setClassRequirement] = useState<any>({
-    requiredStats: {},
-    requiredLevel: 1,
-    requiredElements: [],
-    description: '',
-    initialEquipment: []
-  });
+      requiredStats: {
+        strength: 0,
+        intelligence: 0,
+        magic: 0,
+        vitality: 0,
+        luck: 0,
+        charm: 0,
+        reputation: 0,
+        gold: 0
+      },
+      requiredLevel: 1,
+      requiredElements: [],
+      description: '',
+      initialEquipment: []
+    });
   const [isCreating, setIsCreating] = useState(false);
 
   const handleEdit = (className: string) => {
@@ -75,23 +93,41 @@ export const AdminClasses: React.FC<AdminClassesProps> = ({
     setIsCreating(false);
     setNewClassName('');
     setClassData({
-      id: '',
-      name: '',
-      tier: 0,
-      baseStats: {},
-      elementalRequirements: [],
-      reputation: 0,
-      gold: 0,
-      description: '',
-      maxLevel: 20
-    });
+          id: '',
+          name: '',
+          tier: 0,
+          baseStats: {
+            strength: 0,
+            intelligence: 0,
+            magic: 0,
+            vitality: 0,
+            luck: 0,
+            charm: 0,
+            reputation: 0,
+            gold: 0
+          },
+          elementalRequirements: [],
+          reputation: 0,
+          gold: 0,
+          description: '',
+          maxLevel: 20
+        });
     setClassRequirement({
-      requiredStats: {},
-      requiredLevel: 1,
-      requiredElements: [],
-      description: '',
-      initialEquipment: []
-    });
+          requiredStats: {
+            strength: 0,
+            intelligence: 0,
+            magic: 0,
+            vitality: 0,
+            luck: 0,
+            charm: 0,
+            reputation: 0,
+            gold: 0
+          },
+          requiredLevel: 1,
+          requiredElements: [],
+          description: '',
+          initialEquipment: []
+        });
   };
 
   const handleDelete = (className: string) => {
@@ -106,28 +142,46 @@ export const AdminClasses: React.FC<AdminClassesProps> = ({
   };
 
   const handleCancel = () => {
-    setEditingClass(null);
-    setIsCreating(false);
-    setNewClassName('');
-    setClassData({
-      id: '',
-      name: '',
-      tier: 0,
-      baseStats: {},
-      elementalRequirements: [],
-      reputation: 0,
-      gold: 0,
-      description: '',
-      maxLevel: 20
-    });
-    setClassRequirement({
-      requiredStats: {},
-      requiredLevel: 1,
-      requiredElements: [],
-      description: '',
-      initialEquipment: []
-    });
-  };
+      setEditingClass(null);
+      setIsCreating(false);
+      setNewClassName('');
+      setClassData({
+        id: '',
+        name: '',
+        tier: 0,
+        baseStats: {
+          strength: 0,
+          intelligence: 0,
+          magic: 0,
+          vitality: 0,
+          luck: 0,
+          charm: 0,
+          reputation: 0,
+          gold: 0
+        },
+        elementalRequirements: [],
+        reputation: 0,
+        gold: 0,
+        description: '',
+        maxLevel: 20
+      });
+      setClassRequirement({
+        requiredStats: {
+          strength: 0,
+          intelligence: 0,
+          magic: 0,
+          vitality: 0,
+          luck: 0,
+          charm: 0,
+          reputation: 0,
+          gold: 0
+        },
+        requiredLevel: 1,
+        requiredElements: [],
+        description: '',
+        initialEquipment: []
+      });
+    };
 
   const handleStatChange = (stat: keyof PlayerStats, value: string) => {
     const numValue = parseInt(value) || 0;
@@ -156,34 +210,45 @@ export const AdminClasses: React.FC<AdminClassesProps> = ({
     }));
   };
   const startCreating = () => {
-    setIsCreating(true);
-    setNewClassName('');
-    setClassData({
-      id: '',
-      name: '',
-      tier: 0,
-      baseStats: {
-        strength: 0,
-        intelligence: 0,
-        magic: 0,
-        vitality: 0,
+      setIsCreating(true);
+      setNewClassName('');
+      setClassData({
+        id: '',
+        name: '',
+        tier: 0,
+        baseStats: {
+          strength: 0,
+          intelligence: 0,
+          magic: 0,
+          vitality: 0,
+          luck: 0,
+          charm: 0,
+          gold: 0,
+          reputation: 0
+        },
+        elementalRequirements: [],
+        reputation: 0,
         gold: 0,
-        reputation: 0
-      },
-      elementalRequirements: [],
-      reputation: 0,
-      gold: 0,
-      description: '',
-      maxLevel: 20
-    });
-    setClassRequirement({
-      requiredStats: {},
-      requiredLevel: 1,
-      requiredElements: [],
-      description: '',
-      initialEquipment: []
-    });
-  };
+        description: '',
+        maxLevel: 20
+      });
+      setClassRequirement({
+        requiredStats: {
+          strength: 0,
+          intelligence: 0,
+          magic: 0,
+          vitality: 0,
+          luck: 0,
+          charm: 0,
+          gold: 0,
+          reputation: 0
+        },
+        requiredLevel: 1,
+        requiredElements: [],
+        description: '',
+        initialEquipment: []
+      });
+    };
 
   const elementOptions: Array<{ id: Element; name: Element }> = [
     { id: 'Light', name: 'Light' },

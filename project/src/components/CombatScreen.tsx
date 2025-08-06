@@ -38,134 +38,193 @@ export const CombatScreen: React.FC<CombatScreenProps> = ({
     onCombatEnd('escape', updatedPlayer);
   };
   const handleAction = (action: 'attack' | 'defend' | 'spell', spellId?: string) => {
-    if (currentCombat.turn !== 'player' || combatEnded) return;
-
-    let newCombat = { ...currentCombat };
-    let damage = 0;
-    let logMessage = '';
-
-    switch (action) {
-      case 'attack':
-        damage = Math.floor(Math.random() * 10) + player.stats.strength;
-        newCombat.monster.health = Math.max(0, newCombat.monster.health - damage);
-        logMessage = `You attack for ${damage} damage!`;
-        break;
-
-      case 'defend':
-        // Defending reduces incoming damage next turn
-        logMessage = 'You prepare to defend!';
-        break;
-
-      case 'spell':
-        if (spellId && gameData.spells[spellId]) {
-          const spell = gameData.spells[spellId];
-          if (player.mana >= spell.manaCost) {
-            newCombat.player.mana -= spell.manaCost;
-            
-            if (spell.type === 'Attack') {
-              damage = spell.power + Math.floor(player.stats.magic / 2);
-              newCombat.monster.health = Math.max(0, newCombat.monster.health - damage);
-              logMessage = `You cast ${spell.name} for ${damage} damage!`;
-            } else if (spell.type === 'Heal') {
-              const healing = spell.power;
-              newCombat.player.health = Math.min(player.maxHearts, newCombat.player.health + healing);
-              logMessage = `You cast ${spell.name} and heal for ${healing} health!`;
-            } else if (spell.type === 'Defend') {
-              logMessage = `You cast ${spell.name} and strengthen your defenses!`;
+        if (currentCombat.turn !== 'player' || combatEnded) return;
+        
+        // Regenerate mana and health at the start of player's turn
+                let updatedCombat = { ...currentCombat };
+                // Regenerate mana equal to half of magic stat
+                const manaRegen = Math.floor(player.stats.magic / 2);
+                updatedCombat.player.mana = Math.min(player.maxMana, updatedCombat.player.mana + manaRegen);
+                
+                // Regenerate health equal to half of vitality stat
+                const healthRegen = Math.floor(player.stats.vitality / 2);
+                updatedCombat.player.health = Math.min(player.maxHearts, updatedCombat.player.health + healthRegen);
+  
+      let damage = 0;
+      let logMessage = '';
+    
+        switch (action) {
+          case 'attack':
+                      damage = player.stats.strength;
+                      updatedCombat.monster.health = Math.max(0, updatedCombat.monster.health - damage);
+                      logMessage = `You attack for ${damage} damage!`;
+                      break;
+    
+          case 'defend':
+            // Defending reduces incoming damage next turn
+            logMessage = 'You prepare to defend!';
+            break;
+    
+          case 'spell':
+            if (spellId && gameData.spells[spellId]) {
+              const spell = gameData.spells[spellId];
+              if (player.mana >= spell.manaCost) {
+                updatedCombat.player.mana -= spell.manaCost;
+                
+                if (spell.type === 'Attack') {
+                                  damage = spell.power + player.stats.intelligence;
+                                  updatedCombat.monster.health = Math.max(0, updatedCombat.monster.health - damage);
+                                  logMessage = `You cast ${spell.name} for ${damage} damage!`;
+                                } else if (spell.type === 'Heal') {
+                  const healing = spell.power;
+                  updatedCombat.player.health = Math.min(player.maxHearts, updatedCombat.player.health + healing);
+                  logMessage = `You cast ${spell.name} and heal for ${healing} health!`;
+                } else if (spell.type === 'Defend') {
+                  logMessage = `You cast ${spell.name} and strengthen your defenses!`;
+                }
+              }
             }
-          }
+            break;
         }
-        break;
-    }
-
-    newCombat.log.push(logMessage);
-
-    // Check if monster is defeated
-    if (newCombat.monster.health <= 0) {
-      newCombat.log.push(`${newCombat.monster.data.name} is defeated!`);
-      setCombatEnded(true);
-      const updatedPlayer = { ...player };
-      updatedPlayer.hearts = newCombat.player.health;
-      updatedPlayer.mana = newCombat.player.mana;
-      onCombatEnd('win', updatedPlayer);
-      return;
-    }
-
-    // Monster turn
-    newCombat.turn = 'monster';
-    setCurrentCombat(newCombat);
-
-    // AI decision making
-    setTimeout(() => {
-      performMonsterAction(newCombat);
-    }, 1000);
+    
+        updatedCombat.log.push(logMessage);
+    
+        // Check if monster is defeated
+        if (updatedCombat.monster.health <= 0) {
+          updatedCombat.log.push(`${updatedCombat.monster.data.name} is defeated!`);
+          setCombatEnded(true);
+          const updatedPlayer = { ...player };
+          updatedPlayer.hearts = updatedCombat.player.health;
+          updatedPlayer.mana = updatedCombat.player.mana;
+          onCombatEnd('win', updatedPlayer);
+          return;
+        }
+    
+        // Monster turn
+        updatedCombat.turn = 'monster';
+        setCurrentCombat(updatedCombat);
+    
+        // AI decision making
+        setTimeout(() => {
+                  performMonsterAction(updatedCombat, gameData);
+                }, 1000);
   };
 
-  const performMonsterAction = (combat: CombatState) => {
-    const monster = combat.monster.data;
-    let action = 'attack'; // Default action
-    let logMessage = '';
-
-    // AI decision logic
-    const healthPercentage = (combat.monster.health / monster.stats.health) * 100;
-    
-    if (healthPercentage <= monster.ai.threatThreshold) {
-      // Low health - prefer healing or defending
-      if (combat.monster.mana >= 5 && Math.random() < 0.7) {
-        action = 'heal';
-      } else {
+  const performMonsterAction = (combat: CombatState, gameData: GameData) => {
+      const monster = combat.monster.data;
+      let action = 'attack'; // Default action
+      let logMessage = '';
+      let selectedSpell: Spell | null = null;
+  
+      // AI decision logic
+      const healthPercentage = (combat.monster.health / monster.stats.health) * 100;
+      
+      // Check if monster has spells available
+      const availableSpells = monster.spells
+        .map(spellId => gameData.spells[spellId])
+        .filter(spell => spell && combat.monster.mana >= spell.manaCost);
+      
+      if (healthPercentage <= monster.ai.threatThreshold) {
+        // Low health - prefer healing or defending
+        if (combat.monster.mana >= 5 && Math.random() < 0.7) {
+          // Check if monster has healing spells
+          const healingSpells = availableSpells.filter(spell => spell.type === 'Heal');
+          if (healingSpells.length > 0) {
+            action = 'spell';
+            selectedSpell = healingSpells[Math.floor(Math.random() * healingSpells.length)];
+          } else {
+            action = 'heal';
+          }
+        } else {
+          action = 'defend';
+        }
+      } else if (availableSpells.length > 0 && monster.ai.elementalPreference && combat.monster.mana >= 3) {
+        // Use elemental attack if possible
+        action = 'spell';
+        // Prefer attack spells, but use any available spell if no attack spells
+        const attackSpells = availableSpells.filter(spell => spell.type === 'Attack');
+        selectedSpell = attackSpells.length > 0
+          ? attackSpells[Math.floor(Math.random() * attackSpells.length)]
+          : availableSpells[Math.floor(Math.random() * availableSpells.length)];
+      } else if (combat.monster.mana < 3 && Math.random() < 0.3) {
+        // Low mana - sometimes defend to conserve mana
         action = 'defend';
       }
-    } else if (monster.ai.elementalPreference && combat.monster.mana >= 3) {
-      // Use elemental attack if possible
-      action = 'spell';
-    }
-
-    let newCombat = { ...combat };
-    
-    switch (action) {
-      case 'attack':
-        const damage = Math.floor(Math.random() * 8) + monster.stats.attack;
-        newCombat.player.health = Math.max(0, newCombat.player.health - damage);
-        logMessage = `${monster.name} attacks for ${damage} damage!`;
-        break;
-
-      case 'heal':
-        const healing = 10;
-        newCombat.monster.health = Math.min(monster.stats.health, newCombat.monster.health + healing);
-        newCombat.monster.mana -= 5;
-        logMessage = `${monster.name} heals for ${healing} health!`;
-        break;
-
-      case 'defend':
-        logMessage = `${monster.name} prepares to defend!`;
-        break;
-
-      case 'spell':
-        const spellDamage = 12;
-        newCombat.player.health = Math.max(0, newCombat.player.health - spellDamage);
-        newCombat.monster.mana -= 3;
-        logMessage = `${monster.name} casts a spell for ${spellDamage} damage!`;
-        break;
-    }
-
-    newCombat.log.push(logMessage);
-
-    // Check if player is defeated
-    if (newCombat.player.health <= 0) {
-      newCombat.log.push('You have been defeated!');
-      setCombatEnded(true);
-      const updatedPlayer = { ...player };
-      updatedPlayer.hearts = newCombat.player.health;
-      updatedPlayer.mana = newCombat.player.mana;
-      onCombatEnd('lose', updatedPlayer);
-      return;
-    }
-
-    newCombat.turn = 'player';
-    newCombat.round += 1;
-    setCurrentCombat(newCombat);
-  };
+  
+      let newCombat = { ...combat };
+      
+      switch (action) {
+        case 'attack':
+          // Calculate damage based on monster's strength
+          const damage = Math.floor(Math.random() * 5) + monster.stats.attack + Math.floor(monster.stats.attack / 2);
+          newCombat.player.health = Math.max(0, newCombat.player.health - damage);
+          logMessage = `${monster.name} attacks for ${damage} damage!`;
+          break;
+  
+        case 'heal':
+          // Calculate healing based on monster's vitality
+          const healing = Math.floor(monster.stats.health / 10) + 5;
+          newCombat.monster.health = Math.min(monster.stats.health, newCombat.monster.health + healing);
+          newCombat.monster.mana -= 5;
+          logMessage = `${monster.name} heals for ${healing} health!`;
+          break;
+  
+        case 'defend':
+          logMessage = `${monster.name} prepares to defend!`;
+          // Could implement damage reduction for next player turn
+          break;
+  
+        case 'spell':
+          if (selectedSpell) {
+            newCombat.monster.mana -= selectedSpell.manaCost;
+            
+            if (selectedSpell.type === 'Attack') {
+              // Calculate spell damage based on monster's intelligence
+              const spellDamage = selectedSpell.power + Math.floor(monster.stats.attack / 2);
+              newCombat.player.health = Math.max(0, newCombat.player.health - spellDamage);
+              logMessage = `${monster.name} casts ${selectedSpell.name} for ${spellDamage} damage!`;
+            } else if (selectedSpell.type === 'Heal') {
+              // Calculate healing based on spell power and monster's magic
+              const spellHealing = selectedSpell.power + Math.floor(monster.stats.health / 20);
+              newCombat.monster.health = Math.min(monster.stats.health, newCombat.monster.health + spellHealing);
+              logMessage = `${monster.name} casts ${selectedSpell.name} and heals for ${spellHealing} health!`;
+            } else if (selectedSpell.type === 'Defend') {
+              logMessage = `${monster.name} casts ${selectedSpell.name} and strengthens defenses!`;
+              // Could implement defense boost for next player turn
+            }
+          } else {
+            // Fallback to regular attack if spell selection failed
+            const damage = Math.floor(Math.random() * 5) + monster.stats.attack + Math.floor(monster.stats.attack / 2);
+            newCombat.player.health = Math.max(0, newCombat.player.health - damage);
+            logMessage = `${monster.name} attacks for ${damage} damage!`;
+          }
+          break;
+      }
+  
+      newCombat.log.push(logMessage);
+  
+      // Check if player is defeated
+      if (newCombat.player.health <= 0) {
+        newCombat.log.push('You have been defeated!');
+        setCombatEnded(true);
+        const updatedPlayer = { ...player };
+        updatedPlayer.hearts = newCombat.player.health;
+        updatedPlayer.mana = newCombat.player.mana;
+        onCombatEnd('lose', updatedPlayer);
+        return;
+      }
+  
+      // Regenerate monster's mana and health
+          const monsterManaRegen = Math.floor(monster.stats.mana / 10); // Regenerate 10% of max mana
+          newCombat.monster.mana = Math.min(monster.stats.mana, newCombat.monster.mana + monsterManaRegen);
+          
+          const monsterHealthRegen = Math.floor(monster.stats.health / 20); // Regenerate 5% of max health
+          newCombat.monster.health = Math.min(monster.stats.health, newCombat.monster.health + monsterHealthRegen);
+          
+          newCombat.turn = 'player';
+          newCombat.round += 1;
+          setCurrentCombat(newCombat);
+    };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-gray-900 to-black p-4">

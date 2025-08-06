@@ -26,6 +26,7 @@ import {
   CombatState,
 } from './types/game';
 import { initialGameData } from './data/gameData';
+import { gameDataManager } from './utils/gameDataManager';
 import {
   createPlayer,
   canLevelUp,
@@ -134,10 +135,10 @@ function App() {
   };
 
   const handleUpdateGameData = (newData: GameData) => {
-    setGameData(newData);
-    // Note: In a real application, this would save to gameData.ts
-    // For now, we'll update the in-memory state
-  };
+      setGameData(newData);
+      // Update gameDataManager with the new data
+      gameDataManager.updateGameData(newData);
+    };
 
   const handleMakeChoice = (choice: Choice) => {
     if (!player || !selectedStory) return;
