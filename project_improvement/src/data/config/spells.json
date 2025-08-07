@@ -1,0 +1,70 @@
+{
+  "fireball": {
+    "id": "fireball",
+    "name": "Fireball",
+    "type": "Attack",
+    "description": "Launches a ball of fire at the enemy",
+    "manaCost": 3,
+    "power": 15,
+    "element": "Fire",
+    "requirements": {
+      "level": 1,
+      "stats": {
+        "magic": 2,
+        "intelligence": 1
+      },
+      "classes": [
+        "mage",
+        "archmage"
+      ]
+    }
+  },
+  "heal": {
+    "id": "heal",
+    "name": "Heal",
+    "type": "Heal",
+    "description": "Restores health to the caster",
+    "manaCost": 2,
+    "power": 10,
+    "element": "Light",
+    "requirements": {
+      "level": 1,
+      "stats": {
+        "magic": 1,
+        "intelligence": 1
+      }
+    }
+  },
+  "magic_missile": {
+    "id": "magic_missile",
+    "name": "Magic Missile",
+    "type": "Attack",
+    "description": "A reliable magical projectile that never misses",
+    "manaCost": 2,
+    "power": 8,
+    "element": "Neutral",
+    "requirements": {
+      "level": 1,
+      "stats": {
+        "magic": 1,
+        "intelligence": 2
+      }
+    }
+  },
+  "shield": {
+    "id": "shield",
+    "name": "Magical Shield",
+    "type": "Defend",
+    "description": "Creates a protective barrier that reduces incoming damage",
+    "manaCost": 3,
+    "power": 12,
+    "element": "Neutral",
+    "requirements": {
+      "level": 3,
+      "stats": {
+        "magic": 2,
+        "intelligence": 2
+      }
+    }
+  }
+}

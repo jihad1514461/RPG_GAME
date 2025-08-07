@@ -1,0 +1,62 @@
+{
+  "Human": {
+    "strength": 1,
+    "intelligence": 1,
+    "magic": 1,
+    "vitality": 1,
+    "luck": 1,
+    "charm": 1,
+    "reputation": 1,
+    "gold": 25
+  },
+  "Elf": {
+    "strength": 0,
+    "intelligence": 2,
+    "magic": 2,
+    "vitality": 0,
+    "luck": 1,
+    "charm": 2,
+    "reputation": 1,
+    "gold": 50
+  },
+  "Dwarf": {
+    "strength": 2,
+    "intelligence": 0,
+    "magic": 0,
+    "vitality": 2,
+    "luck": 0,
+    "charm": 0,
+    "reputation": 1,
+    "gold": 75
+  },
+  "Halfling": {
+    "strength": 0,
+    "intelligence": 1,
+    "magic": 1,
+    "vitality": 1,
+    "luck": 2,
+    "charm": 1,
+    "reputation": 2,
+    "gold": 40
+  },
+  "Orc": {
+    "strength": 3,
+    "intelligence": 0,
+    "magic": 0,
+    "vitality": 2,
+    "luck": 0,
+    "charm": 0,
+    "reputation": 0,
+    "gold": 30
+  },
+  "High Elf": {
+    "strength": 0,
+    "intelligence": 3,
+    "magic": 3,
+    "vitality": 0,
+    "luck": 1,
+    "charm": 3,
+    "reputation": 2,
+    "gold": 100
+  }
+}

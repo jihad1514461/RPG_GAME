@@ -1,0 +1,26 @@
+-- Create Players table
+CREATE TABLE IF NOT EXISTS players (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  gender VARCHAR(20) NOT NULL,
+  race VARCHAR(50) NOT NULL,
+  classes JSON NOT NULL,
+  active_class VARCHAR(50) NOT NULL,
+  stats JSON NOT NULL,
+  level INT NOT NULL DEFAULT 1,
+  xp INT NOT NULL DEFAULT 0,
+  hearts INT NOT NULL DEFAULT 10,
+  max_hearts INT NOT NULL DEFAULT 10,
+  mana INT NOT NULL DEFAULT 10,
+  max_mana INT NOT NULL DEFAULT 10,
+  inventory JSON NOT NULL,
+  equipment JSON NOT NULL,
+  spells JSON NOT NULL,
+  skills JSON NOT NULL,
+  unlocked_spells JSON NOT NULL,
+  unlocked_skills JSON NOT NULL,
+  companions JSON NULL,
+  fame INT NULL,
+  current_node VARCHAR(100) NOT NULL,
+  element VARCHAR(20) NOT NULL
+);

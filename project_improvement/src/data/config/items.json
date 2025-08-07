@@ -1,0 +1,91 @@
+{
+"items": {
+    "iron_sword": {
+      "id": "iron_sword",
+      "name": "Iron Sword",
+      "type": "weapon",
+      "subType": "main_weapon",
+      "description": "A sturdy iron blade that increases your combat prowess",
+      "effects": {
+        "strength": 2
+      },
+      "value": 100,
+      "sellValue": 50,
+      "rarity": "common",
+      "element": "Neutral"
+    },
+    "fire_staff": {
+      "id": "fire_staff",
+      "name": "Fire Staff",
+      "type": "weapon",
+      "subType": "main_weapon",
+      "description": "A mystical staff that channels fire magic",
+      "effects": {
+        "magic": 2,
+        "intelligence": 1
+      },
+      "value": 120,
+      "sellValue": 60,
+      "rarity": "common",
+      "element": "Fire"
+    },
+    "scholar_robes": {
+      "id": "scholar_robes",
+      "name": "Scholar's Robes",
+      "type": "armor",
+      "subType": "body",
+      "description": "Robes worn by learned scholars, enhancing mental capabilities",
+      "effects": {
+        "intelligence": 2,
+        "magic": 1
+      },
+      "value": 80,
+      "sellValue": 40,
+      "rarity": "common",
+      "element": "Neutral"
+    },
+    "health_potion": {
+      "id": "health_potion",
+      "name": "Health Potion",
+      "type": "consumable",
+      "subType": "potion",
+      "description": "Restores 3 hearts when consumed",
+      "effects": {
+        "hearts": 3
+      },
+      "value": 50,
+      "sellValue": 25,
+      "stackable": true,
+      "quantity": 1,
+      "rarity": "common"
+    },
+    "mana_potion": {
+      "id": "mana_potion",
+      "name": "Mana Potion",
+      "type": "consumable",
+      "subType": "potion",
+      "description": "Restores mana based on your magic stat",
+      "effects": {
+        "mana": 5
+      },
+      "value": 60,
+      "sellValue": 30,
+      "stackable": true,
+      "quantity": 1,
+      "rarity": "common"
+    },
+    "gold_ring": {
+      "id": "gold_ring",
+      "name": "Golden Ring",
+      "type": "accessory",
+      "subType": "ring",
+      "description": "A valuable ring that increases your wealth and reputation",
+      "effects": {
+        "gold": 25,
+        "reputation": 1
+      },
+      "value": 200,
+      "sellValue": 100,
+      "rarity": "uncommon"
+    }
+  }}

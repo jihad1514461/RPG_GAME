@@ -1,0 +1,29 @@
+{
+  "knight": {
+    "requiredStats": {
+      "strength": 3,
+      "vitality": 2,
+      "reputation": 1
+    },
+    "requiredLevel": 20,
+    "requiredElements": [
+      "Light"
+    ],
+    "description": "A noble warrior dedicated to honor and protection"
+  },
+  "archmage": {
+    "requiredStats": {
+      "magic": 4,
+      "intelligence": 3,
+      "reputation": 2
+    },
+    "requiredLevel": 20,
+    "requiredElements": [
+      "Fire",
+      "Water",
+      "Air",
+      "Earth"
+    ],
+    "description": "A master of all elemental magics and ancient knowledge"
+  }
+}

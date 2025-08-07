@@ -1,0 +1,75 @@
+{
+"skills": {
+    "sword_mastery": {
+      "id": "sword_mastery",
+      "name": "Sword Mastery",
+      "description": "Increases strength when wielding swords",
+      "type": "passive",
+      "effects": {
+        "strength": 2
+      },
+      "requirements": {
+        "level": 5,
+        "stats": {
+          "strength": 3
+        },
+        "classes": [
+          "warrior",
+          "knight"
+        ]
+      }
+    },
+    "arcane_knowledge": {
+      "id": "arcane_knowledge",
+      "name": "Arcane Knowledge",
+      "description": "Deep understanding of magic increases intelligence and magical power",
+      "type": "passive",
+      "effects": {
+        "intelligence": 2,
+        "magic": 1
+      },
+      "requirements": {
+        "level": 5,
+        "stats": {
+          "intelligence": 3,
+          "magic": 2
+        },
+        "classes": [
+          "mage",
+          "archmage"
+        ]
+      }
+    },
+    "noble_presence": {
+      "id": "noble_presence",
+      "name": "Noble Presence",
+      "description": "Your reputation and wealth grow through noble bearing",
+      "type": "passive",
+      "effects": {
+        "reputation": 2,
+        "gold": 50
+      },
+      "requirements": {
+        "level": 10,
+        "stats": {
+          "reputation": 3
+        }
+      }
+    },
+    "vitality_boost": {
+      "id": "vitality_boost",
+      "name": "Vitality Boost",
+      "description": "Increases your vitality and maximum health",
+      "type": "passive",
+      "effects": {
+        "vitality": 1,
+        "maxHearts": 2
+      },
+      "requirements": {
+        "level": 8,
+        "stats": {
+          "vitality": 4
+        }
+      }
+    }
+  }}

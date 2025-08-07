@@ -1,0 +1,12 @@
+// Export all configuration data for easy importing
+export { default as classRequirements } from './classRequirements.json';
+export { default as classes } from './classes.json';
+export { default as items } from './items.json';
+export { default as shops } from './shops.json';
+export { default as spells } from './spells.json';
+export { default as skills } from './skills.json';
+export { default as monsters } from './monsters.json';
+export { default as villains } from './villains.json';
+export { default as races } from './races.json';
+export { default as stories } from './stories.json';
+export { default as player } from './player.json';

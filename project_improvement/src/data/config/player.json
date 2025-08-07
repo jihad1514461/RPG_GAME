@@ -1,0 +1,33 @@
+{
+  "name": "",
+  "gender": "male",
+  "race": "",
+  "classes": [],
+  "activeClass": "",
+  "stats": {
+    "strength": 1,
+    "intelligence": 1,
+    "vitality": 1,
+    "magic": 1,
+    "luck": 1,
+    "charm": 1,
+    "reputation": 1,
+    "gold": 20
+  },
+  "level": 1,
+  "xp": 0,
+  "hearts": 2,
+  "maxHearts": 2,
+  "mana": 3,
+  "maxMana": 3,
+  "inventory": [],
+  "equipment": {},
+  "spells": [],
+  "skills": [],
+  "unlockedSpells": [],
+  "unlockedSkills": [],
+  "companions": {},
+  "fame": 0,
+  "currentNode": "intro",
+  "element": "Neutral"
+}

@@ -1,0 +1,72 @@
+{
+  "dark_lord": {
+    "id": "dark_lord",
+    "name": "Dark Lord Malachar",
+    "description": "An ancient evil that threatens the realm with dark magic",
+    "backstory": "Once a noble king, corrupted by dark magic and an insatiable thirst for power",
+    "stats": {
+      "health": 200,
+      "attack": 25,
+      "defense": 15,
+      "mana": 50
+    },
+    "element": "Dark",
+    "spells": [
+      "dark_bolt",
+      "shadow_shield",
+      "drain_life"
+    ],
+    "weaknesses": [
+      "Light"
+    ],
+    "immunities": [
+      "Dark"
+    ],
+    "ai": {
+      "threatThreshold": 50,
+      "elementalPreference": true,
+      "resourceThreshold": 30
+    },
+    "dropTable": {
+      "items": [
+        {
+          "itemId": "legendary_gem",
+          "chance": 1,
+          "quantity": 1
+        },
+        {
+          "itemId": "gold_coins",
+          "chance": 1,
+          "quantity": 500
+        }
+      ],
+      "equipment": [
+        {
+          "itemId": "dark_sword",
+          "chance": 0.8
+        }
+      ]
+    },
+    "classRewards": [
+      {
+        "className": "knight",
+        "bonusXP": 100,
+        "bonusReputation": 10
+      },
+      {
+        "className": "cleric",
+        "bonusXP": 120,
+        "bonusReputation": 15
+      },
+      {
+        "className": "all",
+        "bonusXP": 75,
+        "bonusReputation": 5
+      }
+    ],
+    "spellUnlocks": [
+      "holy_light",
+      "divine_protection"
+    ]
+  }
+}

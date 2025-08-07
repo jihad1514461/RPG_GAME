@@ -1,0 +1,146 @@
+{
+  "classes": {
+    "warrior": {
+      "id": "warrior",
+      "name": "Warrior",
+      "tier": 0,
+      "baseStats": {
+        "strength": 3,
+        "magic": 0,
+        "vitality": 2,
+        "intelligence": 1,
+        "reputation": 1,
+        "gold": 50
+      },
+      "elementalRequirements": [
+        "Neutral"
+      ],
+      "reputation": 1,
+      "gold": 50,
+      "description": "A brave fighter skilled in melee combat and physical prowess",
+      "maxLevel": 20,
+      "canChangeTo": [
+        "knight",
+        "barbarian"
+      ]
+    },
+    "mage": {
+      "id": "mage",
+      "name": "Mage",
+      "tier": 0,
+      "baseStats": {
+        "strength": 0,
+        "magic": 3,
+        "vitality": 1,
+        "intelligence": 3,
+        "reputation": 1,
+        "gold": 100
+      },
+      "elementalRequirements": [
+        "Fire",
+        "Water",
+        "Air"
+      ],
+      "reputation": 1,
+      "gold": 100,
+      "description": "A scholar of arcane magic and elemental forces",
+      "maxLevel": 20,
+      "canChangeTo": [
+        "archmage",
+        "elementalist"
+      ]
+    },
+    "rogue": {
+      "id": "rogue",
+      "name": "Rogue",
+      "tier": 0,
+      "baseStats": {
+        "strength": 1,
+        "magic": 1,
+        "vitality": 1,
+        "intelligence": 2,
+        "reputation": 0,
+        "gold": 75
+      },
+      "elementalRequirements": [
+        "Dark",
+        "Neutral"
+      ],
+      "reputation": 0,
+      "gold": 75,
+      "description": "A stealthy character who relies on cunning and agility",
+      "maxLevel": 20,
+      "canChangeTo": [
+        "assassin",
+        "shadowdancer"
+      ]
+    },
+    "cleric": {
+      "id": "cleric",
+      "name": "Cleric",
+      "tier": 0,
+      "baseStats": {
+        "strength": 1,
+        "magic": 2,
+        "vitality": 2,
+        "intelligence": 2,
+        "reputation": 2,
+        "gold": 60
+      },
+      "elementalRequirements": [
+        "Light"
+      ],
+      "reputation": 2,
+      "gold": 60,
+      "description": "A divine healer who channels the power of light",
+      "maxLevel": 20,
+      "canChangeTo": [
+        "paladin",
+        "priest"
+      ]
+    },
+    "knight": {
+      "id": "knight",
+      "name": "Knight",
+      "tier": 1,
+      "baseStats": {
+        "strength": 4,
+        "magic": 0,
+        "vitality": 3,
+        "intelligence": 1,
+        "reputation": 2,
+        "gold": 0
+      },
+      "elementalRequirements": [
+        "Light"
+      ],
+      "reputation": 2,
+      "gold": 0,
+      "description": "A noble warrior dedicated to honor and protection",
+      "maxLevel": 40
+    },
+    "archmage": {
+      "id": "archmage",
+      "name": "Archmage",
+      "tier": 1,
+      "baseStats": {
+        "strength": 0,
+        "magic": 5,
+        "vitality": 1,
+        "intelligence": 4,
+        "reputation": 2,
+        "gold": 0
+      },
+      "elementalRequirements": [
+        "Fire",
+        "Water",
+        "Air",
+        "Earth"
+      ],
+      "reputation": 2,
+      "gold": 0,
+      "description": "A master of all elemental magics and ancient knowledge",
+      "maxLevel": 40
+    }
+  }
+}

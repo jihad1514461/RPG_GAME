@@ -1,0 +1,248 @@
+{
+"stories": {
+    "The Cursed Forest": {
+      "intro": {
+        "id": "intro",
+        "title": "Forest Entrance",
+        "text": "Welcome, {player_name} the {player_race} {player_class}. You stand at the edge of the legendary Cursed Forest, where ancient magics and forgotten treasures await those brave enough to venture forth. Your stats are: Strength {strength}, Intelligence {intelligence}, Magic {magic}, Vitality {vitality}, Gold {gold}, Reputation {reputation}.",
+        "type": "story",
+        "tags": [
+          "forest",
+          "beginning"
+        ],
+        "battle": false,
+        "choices": [
+          {
+            "text": "battle",
+            "next_node": "battle1",
+            "effects": {},
+            "require": {}
+          }
+        ]
+      },
+      "end1": {
+        "id": "",
+        "title": "end1",
+        "text": "end1",
+        "type": "ending",
+        "tags": [],
+        "battle": false,
+        "choices": [
+          {
+            "text": "start",
+            "next_node": "intro",
+            "effects": {},
+            "require": {}
+          }
+        ],
+        "is_ending": true,
+        "monster": "",
+        "shop": {
+          "shopId": "",
+          "categories": []
+        }
+      },
+      "end2": {
+        "id": "",
+        "title": "end2",
+        "text": "end2",
+        "type": "ending",
+        "tags": [],
+        "battle": false,
+        "choices": [],
+        "is_ending": true,
+        "monster": "",
+        "shop": {
+          "shopId": "",
+          "categories": []
+        }
+      },
+      "battle1": {
+        "id": "",
+        "title": "battle1",
+        "text": "",
+        "type": "combat",
+        "tags": [],
+        "battle": true,
+        "choices": [
+          {
+            "text": "Victory! Continue your journey.",
+            "next_node": "battlereward",
+            "effects": {
+              "xp": 50,
+              "reputation": 1
+            },
+            "require": {
+              "battleResult": "win"
+            }
+          },
+          {
+            "text": "Defeat... retreat and regroup.",
+            "next_node": "end1",
+            "effects": {
+              "hearts": -1
+            },
+            "require": {
+              "battleResult": "lose"
+            }
+          },
+          {
+            "text": "Escape from the battle.",
+            "next_node": "end2",
+            "effects": {
+              "reputation": -1
+            },
+            "require": {
+              "battleResult": "escape"
+            }
+          }
+        ],
+        "is_ending": false,
+        "monster": "goblin",
+        "shop": {
+          "shopId": "",
+          "categories": []
+        }
+      },
+      "shop": {
+        "id": "",
+        "title": "shop",
+        "text": "buy",
+        "type": "shop",
+        "tags": [],
+        "battle": false,
+        "choices": [
+          {
+            "text": "start again",
+            "next_node": "intro",
+            "effects": {},
+            "require": {}
+          }
+        ],
+        "is_ending": false,
+        "monster": "",
+        "shop": {
+          "shopId": "magic_emporium",
+          "categories": []
+        }
+      },
+      "battlereward": {
+        "id": "",
+        "title": "battlereward",
+        "text": "battlereward",
+        "type": "choice",
+        "tags": [],
+        "battle": false,
+        "choices": [
+          {
+            "text": "you won the battle",
+            "next_node": "shop",
+            "effects": {
+              "xp": 100
+            },
+            "require": {},
+            "itemRewards": [
+              "iron_sword",
+              "fire_staff"
+            ]
+          }
+        ],
+        "is_ending": false,
+        "monster": "",
+        "shop": {
+          "shopId": "",
+          "categories": []
+        }
+      }
+    },
+    "The Ancient Academy": {
+      "intro": {
+        "id": "intro",
+        "title": "Academy Gates",
+        "text": "You approach the towering gates of the Ancient Academy, a place of learning where scholars and mages have studied for centuries. The stone walls are covered with glowing runes, and you can feel the weight of accumulated knowledge pressing against your consciousness.",
+        "type": "story",
+        "tags": [
+          "academy",
+          "magic",
+          "knowledge"
+        ],
+        "battle": false,
+        "choices": [
+          {
+            "text": "Present yourself as a warrior seeking training",
+            "next_node": "warrior_path",
+            "effects": {
+              "xp": 10
+            },
+            "require": {
+              "strength": 2
+            }
+          },
+          {
+            "text": "Request entry as a scholar",
+            "next_node": "scholar_path",
+            "effects": {
+              "xp": 15,
+              "intelligence": 1
+            },
+            "require": {
+              "intelligence": 3
+            }
+          },
+          {
+            "text": "Demonstrate your magical abilities",
+            "next_node": "mage_path",
+            "effects": {
+              "xp": 20,
+              "magic": 1
+            },
+            "require": {
+              "magic": 2
+            }
+          }
+        ]
+      },
+      "scholar_path": {
+        "id": "scholar_path",
+        "title": "The Great Library",
+        "text": "The academy librarian, impressed by your intellectual prowess, grants you access to the Great Library. Ancient tomes line the walls from floor to ceiling, containing knowledge accumulated over millennia. As you study, your mind expands with newfound wisdom.",
+        "type": "story",
+        "tags": [
+          "library",
+          "knowledge",
+          "study"
+        ],
+        "battle": false,
+        "choices": [
+          {
+            "text": "Study combat techniques and strategy",
+            "next_node": "tactical_study",
+            "effects": {
+              "xp": 25,
+              "intelligence": 2,
+              "strength": 1
+            }
+          },
+          {
+            "text": "Delve into magical theory and spellcraft",
+            "next_node": "magical_study",
+            "effects": {
+              "xp": 30,
+              "intelligence": 1,
+              "magic": 2
+            }
+          },
+          {
+            "text": "Research the history of the realm",
+            "next_node": "historical_study",
+            "effects": {
+              "xp": 20,
+              "intelligence": 2,
+              "reputation": 2,
+              "gold": 100
+            }
+          }
+        ]
+      }
+    }
+  }}
